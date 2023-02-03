@@ -7,10 +7,10 @@
 @Description     ：
 '''
 import toml
-from pobaidu.lib.CONST import DEFAULT_CONFIG_PATH_NAME
+from pobaidu.lib.Const import DEFAULT_CONFIG_PATH_NAME
 
 
-class pobaiduConfig():
+class poaiConfig():
     def __init__(self):
         self.config_info = None
 

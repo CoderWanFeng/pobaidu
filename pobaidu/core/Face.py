@@ -1,5 +1,7 @@
 import base64
+import json
 
+import requests
 from aip import AipImageProcess
 
 from pobaidu.lib.Config import poaiConfig
@@ -7,7 +9,7 @@ from pobaidu.lib.Config import poaiConfig
 from pobaidu.lib.CommonUtils import get_error_info
 
 
-class ImageProcess(poaiConfig):
+class Face(poaiConfig):
     def __init__(self):
         self.BAIDU_AI_CFG = None
         self.CLIENT_API = None
@@ -17,12 +19,21 @@ class ImageProcess(poaiConfig):
 
     def set_config(self, configPath):
         self.BAIDU_AI_CFG = self.get_config(configPath)
-        if self.BAIDU_AI_CFG['baidu-ai']['client_api'] and self.BAIDU_AI_CFG['baidu-ai']['client_secret'] and \
-                self.BAIDU_AI_CFG['baidu-ai']['client_id']:
-            self.CLIENT_API = self.BAIDU_AI_CFG['baidu-ai']['client_api']
+        if self.BAIDU_AI_CFG['baidu-ai']['client_secret'] and self.BAIDU_AI_CFG['baidu-ai']['client_id']:
             self.CLIENT_SECRET = self.BAIDU_AI_CFG['baidu-ai']['client_secret']
             self.CLIENT_ID = self.BAIDU_AI_CFG['baidu-ai']['client_id']
-            self.CLIENT = AipImageProcess(self.CLIENT_ID, self.CLIENT_API, self.CLIENT_SECRET)
+
+    def get_access_token(self):
+        url = f"https://aip.baidubce.com/oauth/2.0/token?client_id={self.CLIENT_ID}&client_secret={self.CLIENT_SECRET}&grant_type=client_credentials"
+        payload = ""
+        headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+
+        token_response = requests.request("POST", url, headers=headers, data=payload)
+        res = json.loads(token_response.text)
+        return res['access_token']
 
     def get_file_content(self, filePath):
         """

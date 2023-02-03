@@ -1,6 +1,6 @@
 import toml
 
-from pobaidu.lib.CONST import DEFAULT_CONFIG_PATH_NAME
+from pobaidu.lib.Const import DEFAULT_CONFIG_PATH_NAME
 
 
 # def get_toml(toml_path):
@@ -27,3 +27,4 @@ def get_error_info(error_info):
     if error_info.get('error_code', False):
         return f"接口调用错误，错误信息是{error_info}，原因和解决方法请查看官方文档：{error_url}"
     return False
+

@@ -11,3 +11,7 @@ DEFAULT_CONFIG_PATH = r'./'
 DEFAULT_CONFIG_NAME = r'baidu-config.toml'
 
 DEFAULT_CONFIG_PATH_NAME = DEFAULT_CONFIG_PATH + DEFAULT_CONFIG_NAME
+
+FACE_URL = "https://aip.baidubce.com/rest/2.0/face/v1/merge?access_token="
+
+SPLIT_LINE = '=' * 30
